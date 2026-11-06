@@ -1,0 +1,42 @@
+name: Validate and publish Android APK
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: zoopit-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check original puzzles and APK contents
+        run: |
+          node tests/engine.cjs
+          python3 tests/check_apk.py
+          sha256sum -c checksums.sha256
+      - name: Rebuild Android independently
+        run: |
+          python3 scripts/bootstrap_android.py
+          python3 scripts/build_android.py --output build/ci-validation.apk
+          java -jar tools/build-tools/android-15/lib/apksigner.jar verify --verbose releases/ZooPit-0.1.0.apk
+      - name: Publish the original signed APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v0.1.0 >/dev/null 2>&1; then
+            gh release upload v0.1.0 releases/ZooPit-0.1.0.apk --clobber
+          else
+            gh release create v0.1.0 releases/ZooPit-0.1.0.apk --target "$GITHUB_SHA" --title "ZooPit 0.1.0" --notes-file RELEASE_NOTES.md
+          fi
+      - name: Keep the latest three releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release list --limit 100 --json tagName,publishedAt --jq 'sort_by(.publishedAt) | reverse | .[3:][].tagName' |
+          while IFS= read -r tag; do
+            gh release delete "$tag" --cleanup-tag --yes
+          done

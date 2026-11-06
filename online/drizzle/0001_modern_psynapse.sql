@@ -1,0 +1,1 @@
+ALTER TABLE `zoo_contests` ADD `puzzles` text DEFAULT '[]' NOT NULL;

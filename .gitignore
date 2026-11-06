@@ -1,0 +1,17 @@
+tools/
+build/
+.keys/
+*.idsig
+node_modules/
+.DS_Store
+online/.sites-runtime/
+online/.wrangler/
+online/node_modules/
+online/dist/
+online/.vinext/
+online/.env*
+online/.dev.vars*
+online/.git/
+__pycache__/
+*.pyc
+outputs/
