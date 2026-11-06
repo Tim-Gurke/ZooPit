@@ -16,21 +16,22 @@ jobs:
       - name: Check original puzzles and APK contents
         run: |
           node tests/engine.cjs
+          node tests/app.cjs
           python3 tests/check_apk.py
           sha256sum -c checksums.sha256
       - name: Rebuild Android independently
         run: |
           python3 scripts/bootstrap_android.py
           python3 scripts/build_android.py --output build/ci-validation.apk
-          java -jar tools/build-tools/android-15/lib/apksigner.jar verify --verbose releases/ZooPit-0.1.0.apk
+          java -jar tools/build-tools/android-15/lib/apksigner.jar verify --verbose releases/ZooPit-0.1.1.apk
       - name: Publish the original signed APK
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view v0.1.0 >/dev/null 2>&1; then
-            gh release upload v0.1.0 releases/ZooPit-0.1.0.apk --clobber
+          if gh release view v0.1.1 >/dev/null 2>&1; then
+            gh release upload v0.1.1 releases/ZooPit-0.1.1.apk --clobber
           else
-            gh release create v0.1.0 releases/ZooPit-0.1.0.apk --target "$GITHUB_SHA" --title "ZooPit 0.1.0" --notes-file RELEASE_NOTES.md
+            gh release create v0.1.1 releases/ZooPit-0.1.1.apk --target "$GITHUB_SHA" --title "ZooPit 0.1.1" --notes-file RELEASE_NOTES.md
           fi
       - name: Keep the latest three releases
         env:

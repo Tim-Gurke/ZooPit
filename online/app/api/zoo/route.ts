@@ -25,7 +25,7 @@ async function limit(key:string,max:number,windowMs:number){
 async function getContest(code:string){const c=await db().prepare("SELECT code,host,count,created,puzzles FROM zoo_contests WHERE code=?").bind(code).first<any>();if(!c)throw new Problem(404,"Diese Freundesrunde wurde nicht gefunden. Prüfe den Code.");return c;}
 async function getEntry(code:string,id:string){const e=await db().prepare("SELECT * FROM zoo_entries WHERE code=? AND player=?").bind(code,id).first<any>();if(!e)throw new Problem(403,"Bitte tritt dieser Runde zuerst mit dem Einladungscode bei.");return e;}
 export async function OPTIONS(){return new Response(null,{status:204,headers:cors});}
-export async function GET(){try{await db().prepare("SELECT code FROM zoo_contests LIMIT 1").first();return json({app:"ZooPit",version:"0.1.0",ready:true});}catch(e){return json({app:"ZooPit",ready:false},503);}}
+export async function GET(){try{await db().prepare("SELECT code FROM zoo_contests LIMIT 1").first();return json({app:"ZooPit",version:"0.1.1",ready:true});}catch(e){return json({app:"ZooPit",ready:false},503);}}
 export async function POST(request:Request){
   try{
     const auth=request.headers.get("authorization")||"",match=/^Bearer ([a-f0-9]{48})$/.exec(auth);

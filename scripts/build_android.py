@@ -33,7 +33,7 @@ def main():
     if not keystore.exists():
         run(['keytool','-genkeypair','-keystore',keystore,'-storetype','PKCS12','-storepass:env','ZOOPIT_SIGN_PASSWORD','-keypass:env','ZOOPIT_SIGN_PASSWORD','-alias','zoopit','-keyalg','RSA','-keysize','2048','-validity','10000','-dname','CN=ZooPit, OU=Android, O=ZooPit'])
         keystore.chmod(0o600)
-    output=Path(args.output).resolve() if args.output else ROOT/'releases/ZooPit-0.1.0.apk';output.parent.mkdir(parents=True,exist_ok=True)
+    output=Path(args.output).resolve() if args.output else ROOT/'releases/ZooPit-0.1.1.apk';output.parent.mkdir(parents=True,exist_ok=True)
     run(['java','-jar',BT/'lib/apksigner.jar','sign','--ks',keystore,'--ks-key-alias','zoopit','--ks-pass','env:ZOOPIT_SIGN_PASSWORD','--key-pass','env:ZOOPIT_SIGN_PASSWORD','--out',output,B/'aligned.apk'])
     run(['java','-jar',BT/'lib/apksigner.jar','verify','--verbose',output])
     print('APK:',output,'bytes:',output.stat().st_size)

@@ -1,11 +1,10 @@
-Erste spielbare ZooPit-Version für Android.
+ZooPit 0.1.1 – klare Fehlerkreuze und Zwischenstand nach jedem Level.
 
-- Werbefrei, normale Rätsel vollständig offline.
-- Neun eigene Tierfiguren, bunte Pastellgebiete und Raster von 4×4 bis 10×10.
-- 250 Kampagnenlevels mit Schwierigkeit 1–5 in wiederkehrenden Wellen; freies Spiel und Zufallsmix.
-- Sammlbare Tipps, Erklärung oder korrekt gesetztes Tier, drei Fehlversuche, Ziehen für Kreuzreihen.
-- Spielgeräusche und ruhige Musik getrennt ein-/ausschaltbar und regelbar.
-- ZooPit-iade für Freunde per Einladungscode mit 5/10/15/20 Rätseln und Ergebnisliste.
-- Spielstand automatisch speichern, sichern und laden.
+- Falsch gesetzte Tiere erhalten sofort ein dauerhaftes, kräftiges Kreuz – auch bei ausgeschalteten Auto-Kreuzen.
+- Nach jedem gelösten Level erscheint der aktuelle Gesamtstand mit Gesamtpunkten, gelösten Rätseln und Tippvorrat.
+- In der ZooPit-iade erscheint nach jedem Rätsel direkt die aktuelle Rangliste.
+- Unterbrochene Ranglistenabfragen lassen sich nach erneutem Öffnen fortsetzen.
+- Vollständiger Name „Tim Weißbach“ im Fußbereich und in den Einstellungen.
+- Vorhandene Spielstände und Einstellungen bleiben beim Update erhalten.
 
-Android 7.0 oder neuer. APK gebaut und Signatur geprüft; Spielabläufe und mobile Darstellung in der Browser-Vorschau getestet.
+Android 7.0 oder neuer. Mit demselben Schlüssel wie 0.1.0 signiertes Update.

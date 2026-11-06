@@ -15,3 +15,8 @@ online/.git/
 __pycache__/
 *.pyc
 outputs/
+
+# Ignore local dependency and signing symlinks as well as directories.
+/tools
+/.keys
+/online/node_modules
